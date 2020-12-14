@@ -5,11 +5,9 @@
 
 import cv2
 import numpy as np
-import math
 import os
 import scipy.io
-from matplotlib import pyplot as plt
-import time
+
 
 #### create output folders
 def func_dir_out(dir_Sim, nPart, nTime, dyN, partSpeedFac):
@@ -17,7 +15,8 @@ def func_dir_out(dir_Sim, nPart, nTime, dyN, partSpeedFac):
 	### subfolder :: thickness Map 	
 	dir_thicknessMap = (dir_Sim + 'thickness_Map_nPart' + 
 		str('{:0>8d}'.format(nPart)) +
-		'_nTime' + str('{:0>4}'.format(nTime)) + '/') 
+		'_nTime' + str('{:0>4}'.format(nTime)) + '/')
+    
 	try:
 		os.stat(dir_thicknessMap)
 	except:

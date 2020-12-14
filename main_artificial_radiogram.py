@@ -3,7 +3,6 @@
 ####### Create artificial radiogram.
 ###########################################################################
 import numpy as np
-import os
 import time
 
 import module_fake_img_sim3D # contains functions to create fake images
@@ -12,19 +11,18 @@ start_time = time.time()
 
 
 
-############ Need parameters to read particle position files
+############ Parameters to read particle position files
 ##################################################################################################
 ### set parameters as used in simulation
-nTime = 10000 # number of time steps
+nTime = 20 # number of time steps
 dt = 1.0 # step size of time step
-dyN = 2 ## type of dynamics
-nPart = 113445 ## corresponds to volumefraction of 0.4
+dyN = 0 ## type of dynamics
+nPart = 20 ## corresponds to volumefraction of 0.4
 speed = 2
 
 ################################
-### Directories
-dir_Sim = ('../../Sim_sedimentation/' +
-	'4_dvx_dvy_not_eq_brownian_sedimentation_cv20_daytime_1559905433/') 
+### Path to position files from particle simulations
+dir_Sim = ('../particle_simulations/Sim_output/') 
 
 ### create folder for fake-images and thickness map
 dir_thicknessMap, dir_fake_img = \
@@ -36,25 +34,22 @@ dir_pos_data = (dir_Sim + 'positions_nPart_' +
 	str('{:0>8d}'.format(nPart)) +
 	'_nTime' + str('{:0>4d}'.format(nTime)) + '/') 
 	
-time.sleep(60*60)
+
 	
 #################################################
 ### read simulation parameters
 fSimName = dir_Sim + 'simulation_parameters.txt'
 BoxDim = module_fake_img_sim3D.func_readSimParams(fSimName)
 
-######## define size of images - must be adjusted if cone beam distortion is implemented
+######## define size of images 
 nPxImg = BoxDim[0] ## should be the same as BoxDim[1]
-print nPxImg
+
 ##################################################################
-#### DISTORTION PARAMETERS DUE TO CONE BEAM GEOMETRY CAN BE ADDED HERE
 #### input size range of particle sizes - paricles of this range will be generated
 diamPartRange = [19,19] # diameter of particles in Px (choose value as in experiments)
 
 
-### add rim to image - cut off later to ensure particles appearing step by step in image
-# nPxImg = int(nPxImg0 + (np.ceil(np.max(diamPartRange)/2.)) * 2.)
-# import pdb;pdb.set_trace()
+
 #### generate particle size distribution 
 diamPart = module_fake_img_sim3D.diamPart_distribution(nPart,diamPartRange)
 
