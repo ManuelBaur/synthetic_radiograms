@@ -1,0 +1,6 @@
+BoxDimensions 532 532 1024
+nTime 20
+dt 1.0
+dyN 0
+nPart 20
+speed 2
